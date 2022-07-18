@@ -6,12 +6,12 @@ spring:
   cloud:
     nacos:
       server-addr: localhost:8848
-#  rabbitmq:
-#    password: guest
-#    username: guest
-#    virtual-host: /
-#    host: 127.0.0.1
-#    port: 5672
+  rabbitmq:
+    password: 123321
+    username: itcast
+    virtual-host: /
+    host: 192.168.211.132
+    port: 5672
   datasource:
     url: jdbc:mysql://localhost:3306/hmall?useSSL=false&serverTimezone=Asia/Shanghai
     username: root

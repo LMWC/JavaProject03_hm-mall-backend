@@ -11,6 +11,12 @@ spring:
   cloud:
     nacos:
       server-addr: localhost:8848 # nacos地址
+  rabbitmq:
+    password: 123321
+    username: itcast
+    virtual-host: /
+    host: 192.168.211.132
+    port: 5672
 mybatis-plus:
   type-aliases-package: com.hmall.item.pojo
   configuration:
@@ -24,3 +30,16 @@ logging:
     com.hmall: debug
   pattern:
     dateformat: HH:mm:ss:SSS
+#seata:
+#  registry:
+#    type: nacos # 使用nacos作为注册中心
+#    nacos:
+#      server-addr: localhost:8848 # nacos服务地址
+#      group: SEATA_GROUP # 默认服务分组
+#      namespace: "" # 默认命名空间
+#      application: seata-server
+#      cluster: default # 默认TC集群名称
+#  tx-service-group: item-service-group # 事务组名称
+#  service:
+#    vgroup-mapping:
+#      order-service-group: default # 事务组对应的TC集群名

@@ -5,7 +5,9 @@ import com.hmall.common.dto.PageDTO;
 import com.hmall.item.pojo.Item;
 import com.hmall.item.service.IItemService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -19,6 +21,9 @@ public class ItemController {
 
     @Autowired
     private IItemService itemService;
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     //根据id查询商品
     @GetMapping("/{id}")
@@ -47,6 +52,8 @@ public class ItemController {
     }
 
     //上架、下架商品
+    //@GlobalTransactional
+    @Transactional
     @PutMapping("/status/{id}/{status}")
     public void status(@PathVariable("id") Long id,@PathVariable("status") int status){
         Item item = itemService.getById(id);
@@ -54,6 +61,11 @@ public class ItemController {
         item.setUpdateTime(this.getCurrentTime());
         boolean update = itemService.updateById(item);
         log.info("上下架结果:{}",update?"成功":"失败");
+        if (status==1){
+            rabbitTemplate.convertAndSend("item.topic","item.insert",id);
+        }else if (status==2){
+            rabbitTemplate.convertAndSend("item.topic","item.delete",id);
+        }
     }
 
     //修改商品

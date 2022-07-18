@@ -12,4 +12,10 @@ public interface SearchService {
     PageDTO<ItemDoc> selectByCondition(RequestParams requestParams) throws IOException;
 
     Map<String, List<String>> aggregationByCondition(RequestParams requestParams) throws IOException;
+
+    List<String> suggestion(String key) throws IOException;
+
+    boolean insertById(Long id);
+
+    boolean deleteById(Long id);
 }

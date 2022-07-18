@@ -1,16 +1,24 @@
 package com.hmall.search.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.hmall.common.client.ItemClient;
+import com.hmall.common.dto.Item;
 import com.hmall.common.dto.PageDTO;
 import com.hmall.search.doc.ItemDoc;
 import com.hmall.search.dto.RequestParams;
 import com.hmall.search.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.elasticsearch.action.delete.DeleteRequest;
+import org.elasticsearch.action.delete.DeleteResponse;
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.text.Text;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
@@ -23,6 +31,10 @@ import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.SortOrder;
+import org.elasticsearch.search.suggest.Suggest;
+import org.elasticsearch.search.suggest.SuggestBuilder;
+import org.elasticsearch.search.suggest.SuggestBuilders;
+import org.elasticsearch.search.suggest.completion.CompletionSuggestion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,6 +105,37 @@ public class SearchServiceImpl implements SearchService {
         return handleAggResponse(response);
     }
 
+    @Autowired
+    private ItemClient itemClient;
+
+    @Override
+    public boolean insertById(Long id) {
+        Item item = itemClient.queryItemById(id);
+        ItemDoc itemDoc = new ItemDoc(item);
+        String jsonItemDoc = JSON.toJSONString(itemDoc);
+        IndexRequest request = new IndexRequest("item").id(id.toString());
+        request.source(jsonItemDoc, XContentType.JSON);
+        IndexResponse response = null;
+        try {
+            response = client.index(request, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response != null && "created".equals(response.getResult().getLowercase());
+    }
+
+    @Override
+    public boolean deleteById(Long id) {
+        DeleteRequest request = new DeleteRequest("item");
+        request.id(id.toString());
+        DeleteResponse response = null;
+        try {
+            response = client.delete(request, RequestOptions.DEFAULT);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return response != null && "deleted".equals(response.getResult().getLowercase());
+    }
 
     //组合查询
     private BoolQueryBuilder booleanQuery(RequestParams params) {
@@ -172,4 +215,31 @@ public class SearchServiceImpl implements SearchService {
         map.put("brand",brandList);
         return map;
     }
+
+    //自动补全
+    @Override
+    public List<String> suggestion(String key) {
+
+        try {
+            SearchRequest request = new SearchRequest("item");
+            request.source().suggest(
+                    new SuggestBuilder().addSuggestion("mysuggest",
+                            SuggestBuilders.completionSuggestion("suggestion").prefix(key)
+                                    .skipDuplicates(true).size(20))
+            );
+            SearchResponse search = client.search(request, RequestOptions.DEFAULT);
+            //解析
+            CompletionSuggestion mysuggest = search.getSuggest().getSuggestion("mysuggest");
+            List<CompletionSuggestion.Entry.Option> options = mysuggest.getOptions();
+            List<String> list = new ArrayList<>();
+            for (CompletionSuggestion.Entry.Option option : options) {
+                Text text = option.getText();
+                list.add(text.toString());
+            }
+            return list;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

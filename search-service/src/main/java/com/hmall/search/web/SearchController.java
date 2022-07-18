@@ -24,9 +24,10 @@ public class SearchController {
 
     //搜索栏自动补全
     @GetMapping("/suggestion")
-    public List<String> suggestion(String key){
-        return null;
+    public List<String> suggestion(@RequestParam("key") String key) throws IOException {
+        return searchService.suggestion(key);
     }
+
 
     //过滤项聚合
     @PostMapping("/filters")
