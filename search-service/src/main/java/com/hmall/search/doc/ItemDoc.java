@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class ItemDoc {
-    /*private Long id;//商品id
+    private Long id;//商品id
     private String name;//商品名称
     private Long price;//价格（分）
     private Integer stock;//库存数量-------
@@ -24,7 +24,7 @@ public class ItemDoc {
     //自动补全，设置对应字段
     private List<String> suggestion;
 
-    public ItemDoc(Item item) {
+    /*public ItemDoc(Item item) {
         this.id = item.getId();
         this.name = item.getName();
         this.price = item.getPrice();

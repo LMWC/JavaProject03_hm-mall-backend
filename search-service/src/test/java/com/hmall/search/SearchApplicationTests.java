@@ -21,7 +21,7 @@ import java.util.List;
 @SpringBootTest
 public class SearchApplicationTests {
 
-    /*private static final String ITEM_MAPPING = "{\n" +
+    private static final String ITEM_MAPPING = "{\n" +
             "  \"mappings\": {\n" +
             "    \"properties\": {\n" +
             "      \"id\":{\n" +
@@ -71,7 +71,7 @@ public class SearchApplicationTests {
             "      }\n" +
             "    }\n" +
             "  }\n" +
-            "}";*/
+            "}";
 
     @Autowired
     @Qualifier("restHighLevelClient")
@@ -88,7 +88,7 @@ public class SearchApplicationTests {
         client.close();
     }
 
-    /*//创建商品索引库
+    //创建商品索引库
     @Test
     public void createIndex() throws IOException {
         System.out.println("开始商品创建索引库...");
@@ -101,7 +101,7 @@ public class SearchApplicationTests {
         System.out.println("创建索引库成功");
     }
 
-    @Autowired
+    /*@Autowired
     private ItemClient itemClient;
 
     //导入数据
