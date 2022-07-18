@@ -13,6 +13,7 @@
         <module>item-service</module>
         <module>feign-api</module>
         <module>gateway</module>
+        <module>search-service</module>
     </modules>
 
     <packaging>pom</packaging>
