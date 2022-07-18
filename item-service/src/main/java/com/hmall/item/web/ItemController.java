@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Slf4j
@@ -49,6 +51,7 @@ public class ItemController {
     public void status(@PathVariable("id") Long id,@PathVariable("status") int status){
         Item item = itemService.getById(id);
         item.setStatus(status);
+        item.setUpdateTime(this.getCurrentTime());
         boolean update = itemService.updateById(item);
         log.info("上下架结果:{}",update?"成功":"失败");
     }
@@ -56,6 +59,7 @@ public class ItemController {
     //修改商品
     @PutMapping()
     public void update(@RequestBody Item item){
+        item.setUpdateTime(this.getCurrentTime());
         boolean update = itemService.updateById(item);
         log.info("更新结果:{}",update?"成功":"失败");
     }
@@ -65,5 +69,18 @@ public class ItemController {
     public void delete(@PathVariable Long id){
         boolean delete = itemService.removeById(id);
         log.info("删除结果:{}",delete?"成功":"失败");
+    }
+
+    //获取系统当前时间
+    private Date getCurrentTime() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTime = sdf.format(new Date());
+        Date date = null;
+        try {
+            date = sdf.parse(currentTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 }
