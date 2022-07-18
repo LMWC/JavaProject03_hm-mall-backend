@@ -4,6 +4,8 @@ import com.hmall.common.dto.Item;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 //文档对应的Java类
@@ -20,7 +22,10 @@ public class ItemDoc {
     private String spec;//规格---------
     private Integer sold;//销量
     private Integer commentCount;//评论数
+    private Integer status;//是否下架--------
     private Boolean isAD;//是否广告--------
+    private Date createTime;//创建时间
+    private Date updateTime;//更新时间
 
     //自动补全，设置对应字段
     private List<String> suggestion;
@@ -36,6 +41,10 @@ public class ItemDoc {
         this.spec = item.getSpec();
         this.sold = item.getSold();
         this.commentCount = item.getCommentCount();
+        this.status = item.getStatus();
         this.isAD = item.getIsAD();
+        this.createTime = item.getCreateTime();
+        this.updateTime = item.getUpdateTime();
+        this.suggestion = Arrays.asList(this.category,this.brand);
     }
 }
