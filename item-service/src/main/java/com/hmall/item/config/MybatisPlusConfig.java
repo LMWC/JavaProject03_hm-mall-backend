@@ -1,23 +1,20 @@
-package com.hmall.item;
+package com.hmall.item.config;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@MapperScan("com.hmall.item.mapper")
-@SpringBootApplication
-public class ItemApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(ItemApplication.class, args);
-    }
+/**
+ * 配置MP的分页插件
+ */
+@Configuration
+public class MybatisPlusConfig {
 
-    /*@Bean
+    @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor(){
         MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
         mybatisPlusInterceptor.addInnerInterceptor(new PaginationInnerInterceptor());
         return mybatisPlusInterceptor;
-    }*/
+    }
 }
