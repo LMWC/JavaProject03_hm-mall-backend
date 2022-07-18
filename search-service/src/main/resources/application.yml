@@ -3,9 +3,9 @@ server:
 spring:
   application:
     name: searchservice
-#  cloud:
-#    nacos:
-#      server-addr: localhost:8848
+  cloud:
+    nacos:
+      server-addr: localhost:8848
 #  rabbitmq:
 #    password: guest
 #    username: guest
