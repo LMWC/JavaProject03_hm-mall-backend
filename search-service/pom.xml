@@ -64,7 +64,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>com.hmall</groupId>
+            <artifactId>feign-api</artifactId>
+            <version>1.0</version>
+        </dependency>
 
     </dependencies>
 

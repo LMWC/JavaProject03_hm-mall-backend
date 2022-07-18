@@ -1,6 +1,8 @@
 package com.hmall.search;
 
 import com.alibaba.fastjson.JSON;
+import com.hmall.common.client.ItemClient;
+import com.hmall.common.dto.Item;
 import com.hmall.common.dto.PageDTO;
 import com.hmall.search.doc.ItemDoc;
 import org.elasticsearch.action.bulk.BulkRequest;
@@ -101,7 +103,7 @@ public class SearchApplicationTests {
         System.out.println("创建索引库成功");
     }
 
-    /*@Autowired
+    @Autowired
     private ItemClient itemClient;
 
     //导入数据
@@ -136,5 +138,5 @@ public class SearchApplicationTests {
             client.bulk(request,RequestOptions.DEFAULT);
             page++;
         }
-    }*/
+    }
 }

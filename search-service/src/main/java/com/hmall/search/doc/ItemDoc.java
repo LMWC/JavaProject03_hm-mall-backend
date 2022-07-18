@@ -1,5 +1,6 @@
 package com.hmall.search.doc;
 
+import com.hmall.common.dto.Item;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,7 +25,7 @@ public class ItemDoc {
     //自动补全，设置对应字段
     private List<String> suggestion;
 
-    /*public ItemDoc(Item item) {
+    public ItemDoc(Item item) {
         this.id = item.getId();
         this.name = item.getName();
         this.price = item.getPrice();
@@ -36,5 +37,5 @@ public class ItemDoc {
         this.sold = item.getSold();
         this.commentCount = item.getCommentCount();
         this.isAD = item.getIsAD();
-    }*/
+    }
 }
