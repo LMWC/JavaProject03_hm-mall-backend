@@ -11,4 +11,7 @@ import java.util.List;
 public interface UserClient {
     @GetMapping("/address/uid/{userId}")
     public List<Address> findAddressByUserId(@PathVariable("userId") Long userId);
+
+    @GetMapping("/address/{id}")
+    public Address findAddressById(@PathVariable("id") Long id);
 }
