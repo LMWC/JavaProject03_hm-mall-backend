@@ -217,7 +217,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     //自动补全
-    @Override
+    /*@Override
     public List<String> suggestion(String key) {
 
         try {
@@ -240,6 +240,56 @@ public class SearchServiceImpl implements SearchService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }*/
+    @Override
+    public List<String> suggestion(String prefix) {
+
+        //new一个新的SearchRequest对象
+        SearchRequest request = new SearchRequest("item");
+
+        //打印参数看看
+        System.out.println("prefix = " + prefix);
+        List<String> list = null;
+
+        try {
+            //1、准备DSL
+            request.source().suggest(
+                    new SuggestBuilder().addSuggestion(
+                            "suggestions",
+                            SuggestBuilders.completionSuggestion("suggestion")
+                            .prefix(prefix)
+                            .skipDuplicates(true)
+                            .size(10)
+                    )
+            );
+
+            //3.发起请求
+            SearchResponse response = client.search(request,RequestOptions.DEFAULT);
+
+            //4.解析结果
+            Suggest suggest = response.getSuggest();
+
+            //4.1.根据补全查询名称，获取补全结果
+            CompletionSuggestion suggestions = suggest.getSuggestion("suggestions");
+
+            //4.2.获取options
+            List<CompletionSuggestion.Entry.Option> options = suggestions.getOptions();
+
+            //4.3.遍历
+            list = new ArrayList<>(options.size());
+            for (CompletionSuggestion.Entry.Option option : options) {
+                String text = option.getText().toString();
+                list.add(text);
+            }
+
+            //打印结果看看
+            System.out.println(list);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 
 }
