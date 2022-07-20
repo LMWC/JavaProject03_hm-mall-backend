@@ -95,4 +95,15 @@ public class ItemController {
         }
         return date;
     }
+
+    /**
+     * 根据id添加对应的库存
+     */
+    @GetMapping("stockRollBack/{itemId}/{num}")
+    public void rollBackItem(@PathVariable("itemId")Long itemId,@PathVariable("num") Integer num){
+        if (itemId == null) {
+            throw new RuntimeException("id不能为null");
+        }
+        itemService.rollBackItem(itemId, num);
+    }
 }

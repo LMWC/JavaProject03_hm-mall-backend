@@ -17,6 +17,7 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.lucene.search.function.CombineFunction;
 import org.elasticsearch.common.text.Text;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -81,7 +82,8 @@ public class SearchServiceImpl implements SearchService {
                                 ScoreFunctionBuilders.weightFactorFunction(100)
                         )
                 }
-        );
+        ).boostMode(CombineFunction.MULTIPLY);
+        request.source().query(functionScoreQueryBuilder);
         //5.设置高亮
         request.source().highlighter(new HighlightBuilder().field("name").requireFieldMatch(false));
         SearchResponse response = client.search(request, RequestOptions.DEFAULT);

@@ -16,4 +16,12 @@ public interface ItemClient {
     //更新商品
     @PutMapping("/item")
     public void update(@RequestBody Item item);
+
+    /**
+     * 根据id加对应的库存
+     * @param itemId
+     * @param num
+     */
+    @GetMapping("/item/stockRollBack/{itemId}/{num}")
+    void rollBackItem(@PathVariable("itemId")Long itemId,@PathVariable("num") Integer num);
 }

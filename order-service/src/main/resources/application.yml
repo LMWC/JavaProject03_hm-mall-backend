@@ -8,6 +8,12 @@ spring:
     username: root
     password: root
     driver-class-name: com.mysql.jdbc.Driver
+  rabbitmq:
+    password: 123321
+    username: itcast
+    virtual-host: /
+    host: 192.168.211.132
+    port: 5672
 mybatis-plus:
   type-aliases-package: com.hmall.order.pojo
   configuration:

@@ -5,6 +5,7 @@ import com.hmall.common.client.ItemClient;
 import com.hmall.common.client.UserClient;
 import com.hmall.common.dto.Address;
 import com.hmall.common.dto.Item;
+import com.hmall.order.common.DelaySender;
 import com.hmall.order.dto.RequestParams;
 import com.hmall.order.mapper.OrderMapper;
 import com.hmall.order.pojo.Order;
@@ -37,6 +38,8 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> implements IOr
     private ItemClient itemClient;
     @Autowired
     private UserClient userClient;
+    @Autowired
+    private DelaySender delaySender;
 
     //设计多数据库操作，使用seata的全局事务处理
     @GlobalTransactional
@@ -85,6 +88,8 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> implements IOr
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //发送延迟信息
+        delaySender.sendDelay(order.getId());
         return order.getId();
     }
 
