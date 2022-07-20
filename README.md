@@ -2,7 +2,7 @@
 **黑马商城hm-mall微服务练习项目**
 =========================
 [**项目初始化**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/master)  
-[**前端文件**](https://github.com/LMWC/JavaProject03_hm-mall-web) 
+[**前端文件**](https://github.com/LMWC/JavaProject03_hm-mall-web)  
 [**数据库文件**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/4.%E4%B8%8B%E5%8D%95%E4%B8%9A%E5%8A%A1/MySQL) 
 
 [**1.搭建运行环境**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/1.%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E4%B8%9A%E5%8A%A1)  
@@ -11,6 +11,7 @@
 - 前端页面  
 - 启动nacos  
 - 配置网关  
+
 [**2.商品管理业务**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/1.%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E4%B8%9A%E5%8A%A1)  
 - 分页查询商品  
 - 根据id查询商品  
@@ -18,6 +19,7 @@
 - 商品上架、下架   
 - 修改商品   
 - 根据id删除商品  
+
 [**3.搜索业务**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/2.%E6%90%9C%E7%B4%A2%E4%B8%9A%E5%8A%A1)  
 - 创建搜索服务    
 - 设计索引库的映射  
@@ -25,7 +27,8 @@
 - 搜索栏自动补全功能  
 - 过滤项聚合功能
 - 实现基本搜索功能  
-- ES和MYSQL数据同步    
+- ES和MYSQL数据同步   
+
 [**4.登录用户信息获取**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/3.%E7%99%BB%E5%BD%95%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96%26%E7%94%A8%E6%88%B7%E7%9B%B8%E5%85%B3%E4%B8%9A%E5%8A%A1)  
 - 给所有请求添加用户身份    
 - 微服务获取用户身份进行权限判断   
@@ -34,6 +37,7 @@
 - 数据结构  
 - 根据用户id查询地址列表  
 - 根据addressId查询Address    
+
 [**6.下单业务**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/4.%E4%B8%8B%E5%8D%95%E4%B8%9A%E5%8A%A1)  
 - 数据结构    
 - 提交订单    
