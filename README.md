@@ -2,7 +2,9 @@
 **黑马商城hm-mall微服务练习项目**
 =========================
 [**项目初始化**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/master)  
-[**前端文件**](https://github.com/LMWC/JavaProject03_hm-mall-web)  
+[**前端文件**](https://github.com/LMWC/JavaProject03_hm-mall-web) 
+[**数据库文件**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/4.%E4%B8%8B%E5%8D%95%E4%B8%9A%E5%8A%A1/MySQL) 
+
 [**1.搭建运行环境**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/1.%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E4%B8%9A%E5%8A%A1)  
 - 导入SQL文件  
 - 导入Demo工程  
