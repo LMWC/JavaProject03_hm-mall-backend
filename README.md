@@ -16,7 +16,7 @@ hmall数据库包含tb_address,tb_item,tb_order,tb_order_detail,tb_order_logisti
 ```bash
 编辑startup.cmd设置set MODE="standalone"，双击startup.cmd启动，输入 http://127.0.0.1:8848/nacos 访问  
 默认的账号和密码都是nacos
-```bash
+```
 - 配置网关  
 
 [**2.商品管理业务**](https://github.com/LMWC/JavaProject03_hm-mall-backend/tree/1.%E5%95%86%E5%93%81%E7%AE%A1%E7%90%86%E4%B8%9A%E5%8A%A1)  
